@@ -11,7 +11,7 @@ const { HoldingsModel } = require("./model/HoldingsModel");
 const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
 
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 8000;
 const uri = process.env.MONGO_URL;
 
 const app = express();
@@ -268,6 +268,22 @@ app.get("/api/allOrders", async (req, res) => {
   } catch (error) {
     console.error('Error fetching orders:', error.message);
     res.status(500).json({ error: 'Failed to fetch orders' });
+  }
+});
+
+app.post("/api/signup", async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+    
+    if (!username || !email || !password) {
+      return res.status(400).json({ error: 'All fields are required' });
+    }
+    
+    // In a real app, hash password and save to database
+    console.log('Signup attempt:', { username, email });
+    res.json({ message: 'Signup successful!', username });
+  } catch (error) {
+    res.status(500).json({ error: 'Signup failed' });
   }
 });
 

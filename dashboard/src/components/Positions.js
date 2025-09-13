@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { apiService } from "../utils/api";
 
 const Positions = () => {
   const [allPositions, setAllPositions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const handleRetry = useCallback(() => window.location.reload(), []);
 
   useEffect(() => {
     const fetchPositions = async () => {
@@ -37,7 +39,7 @@ const Positions = () => {
       <div className="error-container">
         <h3>Error</h3>
         <p>{error}</p>
-        <button onClick={() => window.location.reload()}>Retry</button>
+        <button onClick={handleRetry}>Retry</button>
       </div>
     );
   }

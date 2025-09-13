@@ -2,8 +2,8 @@
 echo Starting Zerodha Clone Application...
 
 echo.
-echo Starting Backend Server on port 3003...
-start "Backend-3003" cmd /k "cd backend && set PORT=3003 && npm start"
+echo Starting Backend Server on port 8000...
+start "Backend-8000" cmd /k "cd backend && set PORT=8000 && npm start"
 
 timeout /t 5
 
@@ -19,7 +19,7 @@ start "Frontend-3005" cmd /k "cd frontend && set PORT=3005 && npm start"
 
 echo.
 echo All services started!
-echo Backend: http://localhost:3003
+echo Backend: http://localhost:8000
 echo Dashboard: http://localhost:3004
 echo Frontend: http://localhost:3005
 pause

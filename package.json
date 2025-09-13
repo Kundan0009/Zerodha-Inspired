@@ -1,0 +1,11 @@
+{
+  "name": "zerodha-clone",
+  "version": "1.0.0",
+  "description": "Enhanced Zerodha Clone with Security Improvements",
+  "scripts": {
+    "start": "start-all.bat",
+    "audit-fix": "cd backend && npm audit fix && cd ../dashboard && npm audit fix && cd ../frontend && npm audit fix"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

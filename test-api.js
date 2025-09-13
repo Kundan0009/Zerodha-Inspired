@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const API_BASE = 'http://localhost:3003/api';
+const API_BASE = 'http://localhost:8000/api';
 
 async function testAPI() {
   console.log('🧪 Testing Zerodha Clone API...\n');
