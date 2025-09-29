@@ -1,10 +1,5 @@
 {
   "name": "zerodha-api",
   "version": "1.0.0",
-  "main": "index.js",
-  "dependencies": {
-    "express": "^4.19.2",
-    "mongoose": "^8.3.0",
-    "cors": "^2.8.5"
-  }
+  "main": "index.js"
 }

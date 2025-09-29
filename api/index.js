@@ -1,49 +1,42 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-
-// Simple schema
-const holdingSchema = new mongoose.Schema({
-  name: String,
-  qty: Number,
-  avg: Number,
-  price: Number,
-  net: String,
-  day: String
-});
-
-const HoldingsModel = mongoose.model("holding", holdingSchema);
-
-// Connect to MongoDB
-const uri = process.env.MONGO_URL;
-if (uri) {
-  mongoose.connect(uri).catch(err => console.log(err));
-}
-
-app.get("/api/health", (req, res) => {
-  res.json({ status: "OK" });
-});
-
-app.get("/api/allHoldings", async (req, res) => {
-  try {
-    const holdings = await HoldingsModel.find({});
-    res.json(holdings);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch holdings' });
+const mockHoldings = [
+  {
+    name: "BHARTIARTL",
+    qty: 2,
+    avg: 538.05,
+    price: 541.15,
+    net: "+0.58%",
+    day: "+2.99%"
+  },
+  {
+    name: "HDFCBANK",
+    qty: 2,
+    avg: 1383.4,
+    price: 1522.35,
+    net: "+10.04%",
+    day: "+0.11%"
   }
-});
+];
 
-app.get("/", (req, res) => {
-  res.json({ message: "Zerodha Clone API", endpoints: ["/api/health", "/api/allHoldings"] });
-});
+module.exports = (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+  
+  const { url } = req;
+  
+  if (url === '/api/health') {
+    res.json({ status: "OK", timestamp: new Date().toISOString() });
+  } else if (url === '/api/allHoldings') {
+    res.json(mockHoldings);
+  } else if (url === '/') {
+    res.json({ message: "Zerodha Clone API", endpoints: ["/api/health", "/api/allHoldings"] });
+  } else {
+    res.status(404).json({ error: "Route not found" });
+  }
+};
 
-app.use("*", (req, res) => {
-  res.status(404).json({ error: "Route not found" });
-});
-
-module.exports = app;
