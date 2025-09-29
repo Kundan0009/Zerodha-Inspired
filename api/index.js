@@ -38,4 +38,12 @@ app.get("/api/allHoldings", async (req, res) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.json({ message: "Zerodha Clone API", endpoints: ["/api/health", "/api/allHoldings"] });
+});
+
+app.use("*", (req, res) => {
+  res.status(404).json({ error: "Route not found" });
+});
+
 module.exports = app;
